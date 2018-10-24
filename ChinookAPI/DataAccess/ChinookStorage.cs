@@ -44,5 +44,42 @@ namespace ChinookAPI.DataAccess
                 return queryList;
             }
         }
+        public List<Query2> GetInvoice()
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+
+                command.CommandText = @"SELECT
+	                                        Total = I.Total,
+	                                        Customer = C.FirstName + ' ' + C.LastName,
+	                                        Country = C.Country,
+	                                        SalesAgent = E.FirstName + ' ' + E.LastName
+                                        FROM Customer C
+                                        JOIN Employee E
+                                        ON C.SupportRepId = E.EmployeeId
+                                        JOIN Invoice I
+                                        ON I.CustomerId = C.CustomerId";
+
+                var reader = command.ExecuteReader();
+
+                var queryList = new List<Query2>();
+                while (reader.Read())
+                {
+                    var result = new Query2
+                    {
+                        Total = (decimal)reader["Total"],
+                        CustomerName = reader["Customer"].ToString(),
+                        Country = reader["Country"].ToString(),
+                        SalesAgent = reader["SalesAgent"].ToString()
+                    };
+                    queryList.Add(result);
+                }
+                return queryList;
+            }
+        }
+
     }
 }

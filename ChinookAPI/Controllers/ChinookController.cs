@@ -25,5 +25,17 @@ namespace ChinookAPI.Controllers
         {
             return Ok(_storage.GetById(id));
         }
+
+        //[HttpGet("invoices")]
+        //public ActionResult<IEnumerable<Query2>> GetAll()
+        //{
+        //    return Ok(_storage);
+        //}
+
+        [HttpGet("invoices")]
+        public IActionResult GetAll()
+        {
+            return Ok(_storage.GetInvoice());
+        }
     }
 }
