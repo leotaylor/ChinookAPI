@@ -25,6 +25,9 @@ namespace ChinookAPI.DataAccess
                                         JOIN Invoice I
                                         ON I.CustomerId = C.CustomerId
                                         WHERE E.EmployeeId = @id";
+
+                command.Parameters.AddWithValue("@id", id);
+
                 var reader = command.ExecuteReader();
 
                 var queryList = new List<query1>();
