@@ -37,5 +37,11 @@ namespace ChinookAPI.Controllers
         {
             return Ok(_storage.GetCount(id));
         }
+
+        [HttpPost]
+        public void AddInvoice(Invoice invoice)
+        {
+            _storage.Add(invoice);
+        }
     }
 }
