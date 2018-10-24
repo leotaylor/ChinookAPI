@@ -26,16 +26,16 @@ namespace ChinookAPI.Controllers
             return Ok(_storage.GetById(id));
         }
 
-        //[HttpGet("invoices")]
-        //public ActionResult<IEnumerable<Query2>> GetAll()
-        //{
-        //    return Ok(_storage);
-        //}
-
         [HttpGet("invoices")]
         public IActionResult GetAll()
         {
             return Ok(_storage.GetInvoice());
+        }
+
+        [HttpGet("lineitems/{id}")]
+        public IActionResult GetInvoiceCount(int id)
+        {
+            return Ok(_storage.GetCount(id));
         }
     }
 }

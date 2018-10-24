@@ -80,6 +80,36 @@ namespace ChinookAPI.DataAccess
                 return queryList;
             }
         }
+        public Query3 GetCount(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
 
+                var command = connection.CreateCommand();
+
+                command.CommandText = @"SELECT
+	                                        Invoice = InvoiceId,
+	                                        NumberOfItems = Count(InvoiceLineId)
+                                        FROM InvoiceLine
+                                        WHERE InvoiceId = @id
+                                        GROUP BY InvoiceId";
+
+                command.Parameters.AddWithValue("@id", id);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var result = new Query3
+                    {
+                        Invoice = (int)reader["Invoice"],
+                        NumberOfItems = (int)reader["NumberOfItems"]
+                    };
+                    return result;
+                }
+                return null;
+            }
+        }
     }
 }
