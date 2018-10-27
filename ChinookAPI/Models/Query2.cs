@@ -8,7 +8,7 @@ namespace ChinookAPI.Models
     public class Query2
     {
         public decimal Total { get; set; }
-        public string CustomerName { get; set; }
+        public string Customer { get; set; }
         public string Country { get; set; }
         public string SalesAgent { get; set; }
     }
